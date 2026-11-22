@@ -1,16 +1,10 @@
 GET http://localhost:5176
 ###
-GET http://localhost:5176/cadastrados
-###
-POST http://localhost:5176/cadastrados
-###
-POST http://localhost:5176/api/instrutor/listar
+GET http://localhost:5176/api/instrutor/listar
 ###
 POST http://localhost:5176/instrutor/cadastrar
 Content-Type: application/json
 
 {
-    "Nome": "Jaqueline",
-    "PesoKg": 1543
-
+    "Nome": "Jaquelaine"
 }

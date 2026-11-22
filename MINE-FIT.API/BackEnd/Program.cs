@@ -12,16 +12,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var app = builder.Build();
 
 app.MapGet("/", () => "Mine-Fit API rodando!");
-app.MapGet("/cadastrados", () => "alunos cadastrados");
-app.MapPost("/api/instrutor/listar", () =>
+app.MapGet("/api/instrutor/listar", () =>
 {
-    return listaInstrutores;
+    if (listaInstrutores.Count == 0)
+        return Results.NotFound("A lista está vazia");
+    return Results.Ok(listaInstrutores);
 });
+
 app.MapGet("/alunos/cadastrar", () => "cadastrar alunos");
-app.MapPost("/instrutor/cadastrar", (Instrutores Instrutor) =>
+
+app.MapPost("/instrutor/cadastrar", (Instrutores? Instrutor) =>
 {
+    if (Instrutor is null)
+        return Results.BadRequest("Nenhum dado informado");
+
+    if (listaInstrutores.Any(x => x.Nome == Instrutor.Nome))
+    {
+        return Results.BadRequest("Já cadastrado(a)");
+    }
     listaInstrutores.Add(Instrutor);
+    return Results.Created("", Instrutor);
 });
 
 
-app.Run();
+app.Run();  
