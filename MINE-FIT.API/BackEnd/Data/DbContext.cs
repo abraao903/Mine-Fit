@@ -8,13 +8,7 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Aluno> Alunos => Set<Aluno>();
+    public DbSet<Alunos> Aluno => Set<Alunos>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlite("Data Source=minefit.db");
-        }
-    }
+    public DbSet<Instrutores> Instrutor => Set<Instrutores>();
 }
